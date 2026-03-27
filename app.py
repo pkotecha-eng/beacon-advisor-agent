@@ -75,6 +75,7 @@ if "sample" in st.session_state:
     client_name = sample["client_name"]
     meeting_type = sample["meeting_type"]
     tickers_input = sample["tickers"]
+    st.session_state["client_name_display"] = client_name
 
 # ---------------------------------------------------------------------------
 # Main area
@@ -107,7 +108,7 @@ if not st.session_state["ran"]:
         else:
             with st.spinner("Fetching live market data and generating brief..."):
                 result = run_beacon(
-                    client_name=client_name,
+                    client_name=st.session_state.get("client_name_display") or client_name or "Client",
                     meeting_type=meeting_type,
                     tickers=tickers,
                 )
